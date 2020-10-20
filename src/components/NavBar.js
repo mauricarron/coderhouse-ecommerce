@@ -1,12 +1,14 @@
 import React from "react";
+import CartWidget from "./CartWidget";
 
 const NavBar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <div className="container d-flex justify-content-between">
+      <div className="container">
         <a className="navbar-brand" href="#!">
           MosaiCó
         </a>
+        <CartWidget />
         <button
           className="navbar-toggler"
           type="button"
