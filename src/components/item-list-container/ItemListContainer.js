@@ -9,36 +9,42 @@ const ItemListContainer = ({ title }) => {
     console.log(`Se agregaron ${cantidadSeleccionada} item/s.`);
   };
 
+  // De momento agrego los productos en un array, con el pictureURL hacia la imagen hosteada en github.
   const itemDB = [
     {
       id: "4Dt7y7",
       title: "Circle Split",
       price: 500,
-      pictureUrl: "../img/products/4Dt7y7.jpg",
+      pictureUrl:
+        "https://raw.githubusercontent.com/mdCarron/coderhouse-ecommerce/master/src/img/products/4Dt7y7.jpg",
     },
     {
       id: "Mw3vn6",
       title: "Flower Dots",
       price: 500,
-      pictureUrl: "../img/products/Mw3vn6.jpg",
+      pictureUrl:
+        "https://raw.githubusercontent.com/mdCarron/coderhouse-ecommerce/master/src/img/products/Mw3vn6.jpg",
     },
     {
       id: "mwY7cv",
       title: "Bricks on Rain",
       price: 500,
-      pictureUrl: "../img/products/mwY7cv.jpg",
+      pictureUrl:
+        "https://raw.githubusercontent.com/mdCarron/coderhouse-ecommerce/master/src/img/products/mwY7cv.jpg",
     },
     {
       id: "NgA4ii",
       title: "Sun Flowers",
       price: 500,
-      pictureUrl: "../img/products/NgA4ii.jpg",
+      pictureUrl:
+        "https://raw.githubusercontent.com/mdCarron/coderhouse-ecommerce/master/src/img/products/NgA4ii.jpg",
     },
     {
       id: "y3VHYJ",
       title: "Blue Pathway",
       price: 500,
-      pictureUrl: "../img/products/y3VHYJ.jpg",
+      pictureUrl:
+        "https://raw.githubusercontent.com/mdCarron/coderhouse-ecommerce/master/src/img/products/y3VHYJ.jpg",
     },
   ];
 

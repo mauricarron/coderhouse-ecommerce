@@ -21,7 +21,7 @@ const NavLinks = () => {
       >
         <ul className="navbar-nav">
           <li className="nav-item active">
-            <a className="nav-link" href="#">
+            <a className="nav-link" href="!#">
               Home
               <span className="sr-only">(current)</span>
             </a>
@@ -30,21 +30,21 @@ const NavLinks = () => {
             <a
               className="nav-link dropdown-toggle"
               data-toggle="dropdown"
-              href="#"
+              href="!#"
             >
               Categorías
             </a>
             <div className="dropdown-menu">
-              <a className="dropdown-item" href="#">
+              <a className="dropdown-item" href="!#">
                 Macetas
               </a>
-              <a className="dropdown-item" href="#">
+              <a className="dropdown-item" href="!#">
                 Decoraciones
               </a>
             </div>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <a className="nav-link" href="!#">
               Nosotros
             </a>
           </li>
