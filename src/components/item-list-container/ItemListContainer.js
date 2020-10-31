@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from "react";
-import ItemCount from "./ItemCount";
 import ItemList from "./ItemList";
 
 const ItemListContainer = ({ title }) => {
   const [items, setItems] = useState(null);
-
-  const onAdd = (cantidadSeleccionada) => {
-    console.log(`Se agregaron ${cantidadSeleccionada} item/s.`);
-  };
 
   // De momento agrego los productos en un array, con el pictureURL hacia la imagen hosteada en github.
   const itemDB = [
@@ -66,7 +61,6 @@ const ItemListContainer = ({ title }) => {
     <div>
       <h3>{title}</h3>
       {items && <ItemList items={items} />}
-      <ItemCount stock={10} initial={1} onAdd={onAdd} />
     </div>
   );
 };
