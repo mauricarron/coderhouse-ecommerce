@@ -17,27 +17,31 @@ const ItemCount = ({ stock, initial, onAdd }) => {
   };
 
   return (
-    <div>
-      <div className="btn-group m-2" role="group" aria-label="Agregar o Quitar">
-        <button className="btn btn-link" onClick={decrementar}>
-          <span className="fas fa-minus-circle"></span>
+    <div className="item-counter" style={{ width: "8rem" }}>
+      <div
+        className="counter d-flex justify-content-between align-middle"
+        style={{ height: "2.5rem" }}
+      >
+        <button className="btn btn-light rounded-0" onClick={decrementar}>
+          <span className="fas fa-minus"></span>
         </button>
 
-        <p className="lead mb-0">{cantidad}</p>
+        <p className="lead text-center">
+          <b>{cantidad}</b>
+        </p>
 
-        <button className="btn btn-link" onClick={incrementar}>
-          <span className="fas fa-plus-circle"></span>
+        <button className="btn btn-light rounded-0" onClick={incrementar}>
+          <span className="fas fa-plus"></span>
         </button>
       </div>
-
-      <div className="agregar">
+      <div className="btn-add">
         <button
-          className="btn btn-primary m-2"
+          className="btn btn-light btn-block rounded-0 my-2"
           onClick={() => {
             onAdd(cantidad);
           }}
         >
-          Agregar
+          AGREGAR
         </button>
       </div>
     </div>
