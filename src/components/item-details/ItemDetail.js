@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import ItemCount from "./ItemCount";
 
 const ItemDetail = ({ item }) => {
+  const [cantidadAgregada, setCantidadAgregada] = useState(0);
   const { title, description, price, pictureUrl } = item;
 
   const onAdd = (cantidadSeleccionada) => {
@@ -17,7 +19,18 @@ const ItemDetail = ({ item }) => {
         <h2 className="pt-2">{title}</h2>
         <p>{description}</p>
         <p className="lead">${price}</p>
-        <ItemCount stock={10} initial={1} onAdd={onAdd} />
+        {cantidadAgregada ? (
+          <Link to="/cart" className="btn btn-light btn-block">
+            Terminar Compra
+          </Link>
+        ) : (
+          <ItemCount
+            stock={10}
+            initial={1}
+            onAdd={onAdd}
+            setCantidadAgregada={setCantidadAgregada}
+          />
+        )}
       </div>
     </div>
   );

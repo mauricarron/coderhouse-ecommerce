@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const ItemCount = ({ stock, initial, onAdd }) => {
+const ItemCount = ({ stock, initial, onAdd, setCantidadAgregada }) => {
   const [cantidad, setCantidad] = useState(initial);
   const [stockDisponible] = useState(stock);
 
@@ -39,6 +39,7 @@ const ItemCount = ({ stock, initial, onAdd }) => {
           className="btn btn-light btn-block rounded-0 my-2"
           onClick={() => {
             onAdd(cantidad);
+            setCantidadAgregada(cantidad);
           }}
         >
           AGREGAR
