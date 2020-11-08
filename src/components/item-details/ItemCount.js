@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const ItemCount = ({ stock, initial, onAdd }) => {
   const [cantidad, setCantidad] = useState(initial);
-  const [stockDisponible, setStockDisponible] = useState(stock);
+  const [stockDisponible] = useState(stock);
 
   const incrementar = () => {
     if (stockDisponible > cantidad) {
@@ -17,7 +17,7 @@ const ItemCount = ({ stock, initial, onAdd }) => {
   };
 
   return (
-    <div className="item-counter" style={{ width: "8rem" }}>
+    <div className="item-counter">
       <div
         className="counter d-flex justify-content-between align-middle"
         style={{ height: "2.5rem" }}

@@ -1,10 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const NavBrand = () => {
   return (
-    <a className="navbar-brand" href="!#">
+    <Link to="/" className="navbar-brand">
       MosaiCó
-    </a>
+    </Link>
   );
 };
 

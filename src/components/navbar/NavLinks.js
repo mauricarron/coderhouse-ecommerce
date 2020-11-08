@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const NavLinks = () => {
   return (
@@ -21,32 +22,31 @@ const NavLinks = () => {
       >
         <ul className="navbar-nav">
           <li className="nav-item active">
-            <a className="nav-link" href="!#">
+            <Link to="/" className="nav-link">
               Home
               <span className="sr-only">(current)</span>
-            </a>
+            </Link>
           </li>
           <li className="nav-item dropdown">
-            <a
-              className="nav-link dropdown-toggle"
+            <button
+              className="btn btn-link nav-link dropdown-toggle"
               data-toggle="dropdown"
-              href="!#"
             >
               Categorías
-            </a>
+            </button>
             <div className="dropdown-menu">
-              <a className="dropdown-item" href="!#">
+              <Link to="/" className="dropdown-item">
                 Macetas
-              </a>
-              <a className="dropdown-item" href="!#">
+              </Link>
+              <Link to="/" className="dropdown-item">
                 Decoraciones
-              </a>
+              </Link>
             </div>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="!#">
+            <Link to="/" className="nav-link">
               Nosotros
-            </a>
+            </Link>
           </li>
         </ul>
       </div>

@@ -9,12 +9,12 @@ const ItemDetail = ({ item }) => {
   };
 
   return (
-    <div className="row">
+    <div className="container row mt-5 pt-4">
       <div className="col-12 col-md-6">
         <img src={pictureUrl} alt={title} className="img-fluid" />
       </div>
       <div className="col-12 col-md-6">
-        <h2>{title}</h2>
+        <h2 className="pt-2">{title}</h2>
         <p>{description}</p>
         <p className="lead">${price}</p>
         <ItemCount stock={10} initial={1} onAdd={onAdd} />
