@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import ItemCount from "./ItemCount";
+import { useCartContext } from "../../context/CartContext";
 
 const ItemDetail = ({ item }) => {
   const [cantidadAgregada, setCantidadAgregada] = useState(0);
   const { title, description, price, pictureUrl } = item;
+  const { addItem } = useCartContext();
 
   const onAdd = (cantidadSeleccionada) => {
-    console.log(`Se agregaron ${cantidadSeleccionada} item/s.`);
+    addItem({ item, quantity: cantidadSeleccionada });
   };
 
   return (
@@ -27,8 +29,8 @@ const ItemDetail = ({ item }) => {
           <ItemCount
             stock={10}
             initial={1}
-            onAdd={onAdd}
             setCantidadAgregada={setCantidadAgregada}
+            onAdd={onAdd}
           />
         )}
       </div>
