@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import CartContext from "./context/cartContext";
+import CartContext from "./context/CartContext";
 import NavBar from "./components/navbar/NavBar";
 import Home from "./components/Home";
 import ItemDetailContainer from "./components/item-details/ItemDetailContainer";
