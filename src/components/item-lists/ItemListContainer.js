@@ -57,7 +57,7 @@ const ItemListContainer = ({ title }) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(itemDB);
-      }, 2000);
+      }, 200);
     });
   };
 

@@ -58,7 +58,7 @@ const ItemDetailContainer = () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(itemDB.find((item) => item.id === id));
-      }, 2000);
+      }, 200);
     });
   };
 

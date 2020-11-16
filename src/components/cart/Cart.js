@@ -1,11 +1,12 @@
 import React from "react";
+import CartItems from "./CartItems";
+import NoItemWarning from "./NoItemWarning";
+import { useCartContext } from "../../context/CartContext";
 
 const Cart = () => {
-  return (
-    <div className="container mt-5 pt-5">
-      <h2>Carrito</h2>
-    </div>
-  );
+  const { cart } = useCartContext();
+
+  return <>{cart.length !== 0 ? <CartItems /> : <NoItemWarning />}</>;
 };
 
 export default Cart;
