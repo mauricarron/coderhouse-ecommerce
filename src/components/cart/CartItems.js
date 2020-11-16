@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import CartItemDetail from "./CartItemDetail";
 import { useCartContext } from "../../context/CartContext";
 
@@ -55,18 +56,15 @@ const CartItems = () => {
         </div>
         <div className="row mt-4 d-flex align-items-center">
           <div className="col-sm-6 order-md-2 text-right">
-            <a
-              href="catalog.html"
-              className="btn btn-success mb-4 btn-lg pl-5 pr-5"
-            >
+            <Link to="/cart" className="btn btn-success mb-4 btn-lg pl-5 pr-5">
               Comprar
-            </a>
+            </Link>
           </div>
           <div className="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
-            <a href="catalog.html">
+            <Link to="/">
               <span className="fas fa-arrow-left mr-2 text-success"></span>{" "}
               Seguir Comprando
-            </a>
+            </Link>
           </div>
         </div>
       </div>
