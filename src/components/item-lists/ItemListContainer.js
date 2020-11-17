@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ItemList from "./ItemList";
+import { getFirestore } from "../../firebase";
 
 const ItemListContainer = ({ title }) => {
   const [items, setItems] = useState(null);
@@ -52,6 +53,25 @@ const ItemListContainer = ({ title }) => {
         "https://raw.githubusercontent.com/mdCarron/coderhouse-ecommerce/master/src/img/products/y3VHYJ.jpg",
     },
   ];
+
+  /*
+    useEffect(() => {
+    setLoading(true);
+    const db = getFirestore();
+    const itemCollection = db.collection("items");
+    const catCollection = itemCollection
+    .where('categoryId', '==', 'gorros');
+    catCollection.get().then((querySnapshot) => {
+        if(querySnapshot.size === 0) {
+          console.log('No results');
+        };
+        setItems(
+          querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+        );
+        setLoading(false);
+    });
+  }, [categoryId]);
+  */
 
   const fetchItems = () => {
     return new Promise((resolve, reject) => {
