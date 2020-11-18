@@ -5,7 +5,7 @@ import { useCartContext } from "../../context/CartContext";
 
 const ItemDetail = ({ item }) => {
   const [cantidadAgregada, setCantidadAgregada] = useState(0);
-  const { title, description, price, pictureUrl } = item;
+  const { title, description, price, pictureUrl, stock } = item;
   const { addItem } = useCartContext();
 
   const onAdd = (cantidadSeleccionada) => {
@@ -27,7 +27,7 @@ const ItemDetail = ({ item }) => {
           </Link>
         ) : (
           <ItemCount
-            stock={10}
+            stock={stock}
             initial={1}
             setCantidadAgregada={setCantidadAgregada}
             onAdd={onAdd}

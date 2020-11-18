@@ -2,6 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const NavLinks = () => {
+  const staticCategories = [
+    { categoryId: "macetas", categoryName: "Macetas" },
+    { categoryId: "tutores", categoryName: "Tutores" },
+  ];
+
   return (
     <>
       <button
@@ -35,12 +40,21 @@ const NavLinks = () => {
               Categorías
             </button>
             <div className="dropdown-menu">
-              <Link to="/" className="dropdown-item">
+              {staticCategories.map((category) => (
+                <Link
+                  to={`/categories/${category.categoryId}`}
+                  key={category.categoryId}
+                  className="dropdown-item"
+                >
+                  {category.categoryName}
+                </Link>
+              ))}
+              {/* <Link to="/" className="dropdown-item">
                 Macetas
               </Link>
               <Link to="/" className="dropdown-item">
                 Decoraciones
-              </Link>
+              </Link> */}
             </div>
           </li>
           <li className="nav-item">

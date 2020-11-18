@@ -15,10 +15,13 @@ function App() {
           <Route exact path="/">
             <Home greeting="Bienvenidos a MosaiCó" />
           </Route>
-          <Route path="/item/:id">
+          <Route exact path="/categories/:categoryId">
+            <Home greeting="Bienvenidos a MosaiCó" />
+          </Route>
+          <Route exact path="/item/:id">
             <ItemDetailContainer />
           </Route>
-          <Route path="/cart">
+          <Route exact path="/cart">
             <Cart />
           </Route>
         </Switch>

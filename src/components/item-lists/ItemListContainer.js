@@ -1,91 +1,35 @@
 import React, { useState, useEffect } from "react";
-import ItemList from "./ItemList";
+import { useParams } from "react-router-dom";
 import { getFirestore } from "../../firebase";
+import ItemList from "./ItemList";
 
 const ItemListContainer = ({ title }) => {
   const [items, setItems] = useState(null);
-
-  // De momento agrego los productos en un array, con el pictureURL hacia la imagen hosteada en github.
-  const itemDB = [
-    {
-      id: "4Dt7y7",
-      title: "Circle Split",
-      price: 500,
-      description:
-        "Maceta de autor realizada con técnica de vitrofusión y materiales con la más alta calidad. Mide 20x20cm y se puede colocar tanto en interiores como exteriores.",
-      pictureUrl:
-        "https://raw.githubusercontent.com/mdCarron/coderhouse-ecommerce/master/src/img/products/4Dt7y7.jpg",
-    },
-    {
-      id: "Mw3vn6",
-      title: "Flower Dots",
-      price: 500,
-      description:
-        "Maceta de autor realizada con técnica de vitrofusión y materiales con la más alta calidad. Mide 20x20cm y se puede colocar tanto en interiores como exteriores.",
-      pictureUrl:
-        "https://raw.githubusercontent.com/mdCarron/coderhouse-ecommerce/master/src/img/products/Mw3vn6.jpg",
-    },
-    {
-      id: "mwY7cv",
-      title: "Bricks on Rain",
-      price: 500,
-      description:
-        "Maceta de autor realizada con técnica de vitrofusión y materiales con la más alta calidad. Mide 20x20cm y se puede colocar tanto en interiores como exteriores.",
-      pictureUrl:
-        "https://raw.githubusercontent.com/mdCarron/coderhouse-ecommerce/master/src/img/products/mwY7cv.jpg",
-    },
-    {
-      id: "NgA4ii",
-      title: "Sun Flowers",
-      price: 500,
-      description:
-        "Maceta de autor realizada con técnica de vitrofusión y materiales con la más alta calidad. Mide 20x20cm y se puede colocar tanto en interiores como exteriores.",
-      pictureUrl:
-        "https://raw.githubusercontent.com/mdCarron/coderhouse-ecommerce/master/src/img/products/NgA4ii.jpg",
-    },
-    {
-      id: "y3VHYJ",
-      title: "Blue Pathway",
-      price: 500,
-      description:
-        "Maceta de autor realizada con técnica de vitrofusión y materiales con la más alta calidad. Mide 20x20cm y se puede colocar tanto en interiores como exteriores.",
-      pictureUrl:
-        "https://raw.githubusercontent.com/mdCarron/coderhouse-ecommerce/master/src/img/products/y3VHYJ.jpg",
-    },
-  ];
-
-  /*
-    useEffect(() => {
-    setLoading(true);
-    const db = getFirestore();
-    const itemCollection = db.collection("items");
-    const catCollection = itemCollection
-    .where('categoryId', '==', 'gorros');
-    catCollection.get().then((querySnapshot) => {
-        if(querySnapshot.size === 0) {
-          console.log('No results');
-        };
-        setItems(
-          querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
-        );
-        setLoading(false);
-    });
-  }, [categoryId]);
-  */
-
-  const fetchItems = () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(itemDB);
-      }, 200);
-    });
-  };
+  const { categoryId } = useParams();
 
   useEffect(() => {
-    fetchItems().then((response) => {
-      setItems(response);
-    });
-  }, []);
+    const db = getFirestore();
+    const itemCollection = db.collection("items");
+    let itemsById = itemCollection;
+
+    if (categoryId) {
+      itemsById = itemCollection.where("category", "==", categoryId);
+    }
+
+    itemsById
+      .get()
+      .then((querySnapshot) => {
+        if (querySnapshot.size === 0) {
+          console.log("No hay resultados.");
+        }
+        setItems(
+          querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+        );
+      })
+      .catch((error) => {
+        console.log("Error en la busqueda de items: ", error);
+      });
+  }, [categoryId]);
 
   return (
     <div>
