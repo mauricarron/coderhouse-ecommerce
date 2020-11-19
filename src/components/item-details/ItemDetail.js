@@ -13,26 +13,28 @@ const ItemDetail = ({ item }) => {
   };
 
   return (
-    <div className="container row mt-5 pt-4">
-      <div className="col-12 col-md-6">
-        <img src={pictureUrl} alt={title} className="img-fluid" />
-      </div>
-      <div className="col-12 col-md-6">
-        <h2 className="pt-2">{title}</h2>
-        <p>{description}</p>
-        <p className="lead">${price}</p>
-        {cantidadAgregada ? (
-          <Link to="/cart" className="btn btn-light btn-block">
-            Terminar Compra
-          </Link>
-        ) : (
-          <ItemCount
-            stock={stock}
-            initial={1}
-            setCantidadAgregada={setCantidadAgregada}
-            onAdd={onAdd}
-          />
-        )}
+    <div className="container">
+      <div className="row mt-5 pt-4">
+        <div className="col-12 col-md-6">
+          <img src={pictureUrl} alt={title} className="img-fluid" />
+        </div>
+        <div className="col-12 col-md-6">
+          <h2 className="pt-2">{title}</h2>
+          <p>{description}</p>
+          <p className="lead">${price}</p>
+          {cantidadAgregada ? (
+            <Link to="/cart" className="btn btn-light btn-block">
+              Terminar Compra
+            </Link>
+          ) : (
+            <ItemCount
+              stock={stock}
+              initial={1}
+              setCantidadAgregada={setCantidadAgregada}
+              onAdd={onAdd}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
