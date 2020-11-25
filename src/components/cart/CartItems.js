@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { getFirestore } from "../../firebase";
@@ -7,41 +7,66 @@ import { Link } from "react-router-dom";
 import CartItemDetail from "./CartItemDetail";
 
 const CartItems = () => {
+  const [formValues, setFormValues] = useState({});
   const { cart, clear } = useCartContext();
   let totalPrice = 0;
 
+  const handleInputChange = (e) => {
+    setFormValues({
+      ...formValues,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   async function createOrder() {
-    const newOrder = {
-      buyer: {
-        name: "Sopita",
-        phone: "+541143432323",
-        email: "nombre@email.com",
-      },
-      items: [
-        { id: "1", title: "zapas", price: 200, quantity: 2 },
-        { id: "2", title: "gorro", price: 100, quantity: 1 },
-      ],
-      date: firebase.firestore.FieldValue.serverTimestamp(),
-      total: 500,
-    };
-
     const db = getFirestore();
-    const orders = db.collection("orders");
+    const items = cart.map((prod) => {
+      return {
+        title: prod.item.title,
+        id: prod.item.id,
+        price: prod.item.price,
+        quantity: prod.quantity,
+      };
+    });
 
-    try {
-      const doc = await orders.add(newOrder);
-      console.log("Orden creada con el id: ", doc.id);
-    } catch (error) {
-      console.log("Error creando la orden: ", error);
+    const itemsToUpdate = db.collection("items").where(
+      firebase.firestore.FieldPath.documentId(),
+      "in",
+      items.map((item) => item.id)
+    );
+
+    const query = await itemsToUpdate.get();
+    const batch = db.batch();
+
+    const outOfStock = [];
+    query.docs.forEach((docSnapshot, i) => {
+      if (docSnapshot.data().stock >= items[i].quantity) {
+        batch.update(docSnapshot.ref, {
+          stock: docSnapshot.data().stock - items[i].quantity,
+        });
+      } else {
+        outOfStock.push({ ...docSnapshot.data(), id: docSnapshot.id });
+      }
+    });
+
+    if (outOfStock.length === 0) {
+      const orders = db.collection("orders");
+
+      const newOrder = {
+        buyer: formValues,
+        items: items,
+        date: firebase.firestore.FieldValue.serverTimestamp(),
+        total: totalPrice,
+      };
+
+      try {
+        const doc = await orders.add(newOrder);
+        await batch.commit();
+        console.log("Orden creada con el id: ", doc.id);
+      } catch (error) {
+        console.log("Error creando la orden: ", error);
+      }
     }
-
-    //items.docs.map(d => ({ ...d.data(), id: d.id })).map(({ id, title, price, stock }) => ({ id, title, price, stock } ) )
-    /*
-    const itemQueryByManyId = await db.collection("items")
-        .where(firebase.firestore.FieldPath.documentId(), 
-        'in', ['Q0VfIIoYzn6Lpc2FBQUg', 'iEuV6tEihe7345pKDL7A'] )
-        .get();
- */
   }
 
   return (
@@ -99,14 +124,22 @@ const CartItems = () => {
                 <div className="form-group col-md-6">
                   <label htmlFor="inputFullName">Nombre Completo</label>
                   <input
+                    name="name"
                     type="text"
                     className="form-control"
                     id="inputFullName"
+                    onChange={handleInputChange}
                   />
                 </div>
                 <div className="form-group col-md-6">
                   <label htmlFor="inputPhone">Teléfono</label>
-                  <input type="tel" className="form-control" id="inputPhone" />
+                  <input
+                    name="phone"
+                    type="tel"
+                    className="form-control"
+                    id="inputPhone"
+                    onChange={handleInputChange}
+                  />
                 </div>
               </div>
               <div className="form-group">
@@ -116,9 +149,11 @@ const CartItems = () => {
               <div className="form-group">
                 <label htmlFor="inputEmailCheck">Confirmar Email</label>
                 <input
+                  name="email"
                   type="email"
                   className="form-control"
                   id="inputEmailCheck"
+                  onChange={handleInputChange}
                 />
               </div>
               <div className="d-flex justify-content-between align-items-center">
@@ -126,7 +161,12 @@ const CartItems = () => {
                   <span className="fas fa-arrow-left mr-2 text-success"></span>
                   Seguir Comprando
                 </Link>
-                <Link to="/cart" type="submit" className="btn btn-success">
+                <Link
+                  to="/cart"
+                  type="submit"
+                  onClick={createOrder}
+                  className="btn btn-success"
+                >
                   Terminar Compra
                 </Link>
               </div>
