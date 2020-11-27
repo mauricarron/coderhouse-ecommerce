@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { getFirestore } from "../../firebase";
 import ItemList from "./ItemList";
 
-const ItemListContainer = ({ title }) => {
+const ItemListContainer = () => {
   const [items, setItems] = useState(null);
   const { categoryId } = useParams();
 
@@ -20,7 +20,7 @@ const ItemListContainer = ({ title }) => {
       .get()
       .then((querySnapshot) => {
         if (querySnapshot.size === 0) {
-          console.log("No hay resultados.");
+          alert("No hay resultados.");
         }
         setItems(
           querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
@@ -31,12 +31,7 @@ const ItemListContainer = ({ title }) => {
       });
   }, [categoryId]);
 
-  return (
-    <div>
-      <h3>{title}</h3>
-      {items && <ItemList items={items} />}
-    </div>
-  );
+  return <div>{items && <ItemList items={items} />}</div>;
 };
 
 export default ItemListContainer;

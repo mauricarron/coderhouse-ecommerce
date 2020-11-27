@@ -3,22 +3,23 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import { getFirestore } from "../../firebase";
 import { useCartContext } from "../../context/CartContext";
-import { Link } from "react-router-dom";
 import CartItemDetail from "./CartItemDetail";
+import BuyerForm from "./BuyerForm";
 
 const CartItems = () => {
-  const [formValues, setFormValues] = useState({});
+  const [formValues, setFormValues] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    email2: "",
+  });
+
   const { cart, clear } = useCartContext();
   let totalPrice = 0;
 
-  const handleInputChange = (e) => {
-    setFormValues({
-      ...formValues,
-      [e.target.name]: e.target.value,
-    });
-  };
+  async function createOrder(e) {
+    e.preventDefault();
 
-  async function createOrder() {
     const db = getFirestore();
     const items = cart.map((prod) => {
       return {
@@ -53,7 +54,11 @@ const CartItems = () => {
       const orders = db.collection("orders");
 
       const newOrder = {
-        buyer: formValues,
+        buyer: {
+          name: formValues.name,
+          phone: formValues.phone,
+          email: formValues.email,
+        },
         items: items,
         date: firebase.firestore.FieldValue.serverTimestamp(),
         total: totalPrice,
@@ -62,7 +67,8 @@ const CartItems = () => {
       try {
         const doc = await orders.add(newOrder);
         await batch.commit();
-        console.log("Orden creada con el id: ", doc.id);
+        clear();
+        alert(`Orden creada con el id: ${doc.id}`);
       } catch (error) {
         console.log("Error creando la orden: ", error);
       }
@@ -119,58 +125,11 @@ const CartItems = () => {
           </div>
 
           <div className="col-sm-12 col-lg-4">
-            <form>
-              <div className="form-row">
-                <div className="form-group col-md-6">
-                  <label htmlFor="inputFullName">Nombre Completo</label>
-                  <input
-                    name="name"
-                    type="text"
-                    className="form-control"
-                    id="inputFullName"
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div className="form-group col-md-6">
-                  <label htmlFor="inputPhone">Teléfono</label>
-                  <input
-                    name="phone"
-                    type="tel"
-                    className="form-control"
-                    id="inputPhone"
-                    onChange={handleInputChange}
-                  />
-                </div>
-              </div>
-              <div className="form-group">
-                <label htmlFor="inputEmail">Email</label>
-                <input type="email" className="form-control" id="inputEmail" />
-              </div>
-              <div className="form-group">
-                <label htmlFor="inputEmailCheck">Confirmar Email</label>
-                <input
-                  name="email"
-                  type="email"
-                  className="form-control"
-                  id="inputEmailCheck"
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div className="d-flex justify-content-between align-items-center">
-                <Link to="/">
-                  <span className="fas fa-arrow-left mr-2 text-success"></span>
-                  Seguir Comprando
-                </Link>
-                <Link
-                  to="/cart"
-                  type="submit"
-                  onClick={createOrder}
-                  className="btn btn-success"
-                >
-                  Terminar Compra
-                </Link>
-              </div>
-            </form>
+            <BuyerForm
+              formValues={formValues}
+              setFormValues={setFormValues}
+              createOrder={createOrder}
+            />
           </div>
         </div>
       </div>

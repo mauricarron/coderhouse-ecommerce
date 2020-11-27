@@ -8,11 +8,7 @@ const Item = ({ item }) => {
     <div className="col-sm-12 col-md-6 col-lg-4">
       <div className="card mb-4">
         <Link to={`/item/${id}`}>
-          <img
-            src={`%PUBLIC_URL%/img/${pictureUrl}`}
-            className="card-img-top"
-            alt={title}
-          />
+          <img src={pictureUrl} className="card-img-top" alt={title} />
         </Link>
         <div className="card-body d-flex justify-content-between">
           <Link to={`/item/${id}`}>

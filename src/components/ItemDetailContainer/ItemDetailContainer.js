@@ -16,7 +16,7 @@ const ItemDetailContainer = () => {
       .get()
       .then((doc) => {
         if (!doc.exists) {
-          console.log("No hay resultados.");
+          alert("No hay resultados.");
         }
         setItemDetail({ id: doc.id, ...doc.data() });
       })

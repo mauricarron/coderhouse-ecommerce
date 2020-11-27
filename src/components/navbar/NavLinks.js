@@ -49,18 +49,7 @@ const NavLinks = () => {
                   {category.categoryName}
                 </Link>
               ))}
-              {/* <Link to="/" className="dropdown-item">
-                Macetas
-              </Link>
-              <Link to="/" className="dropdown-item">
-                Decoraciones
-              </Link> */}
             </div>
-          </li>
-          <li className="nav-item">
-            <Link to="/" className="nav-link">
-              Nosotros
-            </Link>
           </li>
         </ul>
       </div>
