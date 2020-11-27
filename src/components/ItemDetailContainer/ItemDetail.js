@@ -4,12 +4,12 @@ import { useCartContext } from "../../context/CartContext";
 import ItemCount from "./ItemCount";
 
 const ItemDetail = ({ item }) => {
-  const [cantidadAgregada, setCantidadAgregada] = useState(0);
+  const [addedQuantity, setAddedQuantity] = useState(0);
   const { title, description, price, pictureUrl, stock } = item;
   const { addItem } = useCartContext();
 
-  const onAdd = (cantidadSeleccionada) => {
-    addItem({ item, quantity: cantidadSeleccionada });
+  const onAdd = (amountSelected) => {
+    addItem({ item, quantity: amountSelected });
   };
 
   return (
@@ -22,7 +22,7 @@ const ItemDetail = ({ item }) => {
           <h2 className="pt-2">{title}</h2>
           <p>{description}</p>
           <p className="lead">${price}</p>
-          {cantidadAgregada ? (
+          {addedQuantity ? (
             <Link to="/cart" className="btn btn-light btn-block">
               Terminar Compra
             </Link>
@@ -30,7 +30,7 @@ const ItemDetail = ({ item }) => {
             <ItemCount
               stock={stock}
               initial={1}
-              setCantidadAgregada={setCantidadAgregada}
+              setAddedQuantity={setAddedQuantity}
               onAdd={onAdd}
             />
           )}

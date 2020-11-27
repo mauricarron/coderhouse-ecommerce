@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 
-const ItemCount = ({ stock, initial, onAdd, setCantidadAgregada }) => {
-  const [cantidad, setCantidad] = useState(initial);
-  const [stockDisponible] = useState(stock);
+const ItemCount = ({ stock, initial, onAdd, setAddedQuantity }) => {
+  const [amount, setAmount] = useState(initial);
+  const [remainingStock] = useState(stock);
 
-  const incrementar = () => {
-    if (stockDisponible > cantidad) {
-      setCantidad(cantidad + 1);
+  const increase = () => {
+    if (remainingStock > amount) {
+      setAmount(amount + 1);
     }
   };
 
-  const decrementar = () => {
-    if (cantidad > initial) {
-      setCantidad(cantidad - 1);
+  const decrease = () => {
+    if (amount > initial) {
+      setAmount(amount - 1);
     }
   };
 
@@ -22,15 +22,15 @@ const ItemCount = ({ stock, initial, onAdd, setCantidadAgregada }) => {
         className="counter d-flex justify-content-between align-middle"
         style={{ height: "2.5rem" }}
       >
-        <button className="btn btn-light rounded-0" onClick={decrementar}>
+        <button className="btn btn-light rounded-0" onClick={decrease}>
           <span className="fas fa-minus"></span>
         </button>
 
         <p className="lead text-center">
-          <b>{cantidad}</b>
+          <b>{amount}</b>
         </p>
 
-        <button className="btn btn-light rounded-0" onClick={incrementar}>
+        <button className="btn btn-light rounded-0" onClick={increase}>
           <span className="fas fa-plus"></span>
         </button>
       </div>
@@ -38,8 +38,8 @@ const ItemCount = ({ stock, initial, onAdd, setCantidadAgregada }) => {
         <button
           className="btn btn-light btn-block rounded-0 my-2"
           onClick={() => {
-            onAdd(cantidad);
-            setCantidadAgregada(cantidad);
+            onAdd(amount);
+            setAddedQuantity(amount);
           }}
         >
           AGREGAR
